@@ -1,0 +1,47 @@
+[build-system]
+requires = ["flit_core>=3.4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name =  "magma-mounts"
+version = "1.0.0"
+authors = [
+    {name = "Martanto", email = "martanto@live.com"},
+]
+description = "Exracting mounts-project SO2 and thermal anomaly values."
+readme = "README.md"
+license = {file = "LICENSE"}
+keywords = ["volcano", "volcanology", "thermal", "gas monitoring", "remote sensing"]
+requires-python = ">=3.11"
+dependencies = [
+    "openpyxl>=3.1.5",
+    "pandas>=2.2.2",
+    "numpy>=2.0.0",
+    "matplotlib>=3.9.0",
+    "magma-database>=1.0.0",
+    "peewee>=3.17.5",
+    "seaborn>=0.13.0",
+    "python-dotenv>=1.0.1",
+]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+[project.optional-dependencies]
+base = [
+    "openpyxl",
+    "pandas",
+    "numpy",
+    "matplotlib",
+    "magma-database",
+    "peewee",
+    "seaborn",
+    "python-dotenv",
+]
+
+[project.urls]
+Homepage = "https://github.com/magma-indonesia/extract-mounts"
+Issues = "https://github.com/magma-indonesia/extract-mounts/issues"
