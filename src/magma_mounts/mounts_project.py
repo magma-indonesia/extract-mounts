@@ -75,10 +75,17 @@ class MountsProject:
         os.makedirs(self.json_dir, exist_ok=True)
 
         self.volcanoes: List[Dict[str, Any]] = volcanoes
-        self.df: pd.DataFrame = pd.DataFrame()
 
     @staticmethod
     def get_json_from_javascript(text: Any) -> Dict[str, Any]:
+        """Get JSON from javascript string variable.
+
+        Args:
+            text (Any): Javascript string variable.
+
+        Returns:
+            Dict[str, Any]: JSON from javascript.
+        """
         var_graph = re.search(r"(?:^|\s|;)var\s+graph\s*=\s*([^']+})", text)
         string_graph = var_graph.group(1)
         json_graph = json.loads(string_graph)
@@ -86,11 +93,27 @@ class MountsProject:
 
     @staticmethod
     def fetch(volcano_code: str) -> Dict[str, Any]:
+        """Fetch JSON from URL.
+
+        Args:
+            volcano_code (str): Volcano code.
+
+        Returns:
+            Dict[str, Any]: JSON from URL.
+        """
         url = f"{MountsProject.URL}{volcano_code}"
         response: Response = requests.get(url)
         return MountsProject.get_json_from_javascript(response.text)
 
-    def write_json(self, volcano_code: str):
+    def write_json(self, volcano_code: str) -> List[Dict[str, Any]]:
+        """Write JSON to file.
+
+        Args:
+            volcano_code (str): Volcano code.
+
+        Returns:
+            List[Dict[str, Any]]: List of dict from URL.
+        """
         json_file = os.path.join(self.json_dir, f"{volcano_code}.json")
         graph_json = self.fetch(volcano_code)
         try:
@@ -103,6 +126,17 @@ class MountsProject:
 
     def values_to_df(self, values: Dict[str, Any], volcano_code: str,
                      volcano_name: str, value_type: str = 'SO2') -> pd.DataFrame:
+        """Values to dataframe.
+
+        Args:
+            values (Dict[str, Any]): Values of SO2 or Thermal.
+            volcano_code (str): Volcano code.
+            volcano_name (str): Volcano name.
+            value_type (str): Value type. Defaults to 'SO2'.
+
+        Returns:
+            pd.DataFrame: Values to dataframe.
+        """
         df = pd.DataFrame.from_dict(values)
         df['datetime'] = pd.to_datetime(df['datetime'])
         df['date'] = df['datetime'].apply(lambda x: x.strftime("%Y-%m-%d"))
@@ -118,7 +152,15 @@ class MountsProject:
         return df
 
     @staticmethod
-    def get_so2_values(data) -> Dict[str, Any]:
+    def get_so2_values(data: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Get SO2 values.
+
+        Args:
+            data (List[Dict[str, Any]): Values of SO2 from JSON.
+
+        Returns:
+            Dict[str, Any]: Values of SO2.
+        """
         values = {
             'datetime': data[2]['x'],
             'value': data[2]['y'],
@@ -127,7 +169,15 @@ class MountsProject:
         return values
 
     @staticmethod
-    def get_thermal_values(data) -> Dict[str, Any]:
+    def get_thermal_values(data: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Get Thermal values.
+
+        Args:
+            data (List[Dict[str, Any]]): Values of Thermal in JSON.
+
+        Returns:
+            Dict[str, Any]: Values of Thermal in JSON.
+        """
         values = {
             'datetime': data[0]['x'],
             'value': data[0]['y'],
@@ -135,7 +185,17 @@ class MountsProject:
         }
         return values
 
-    def save(self, df: pd.DataFrame, volcano_name: str, value_type: str = 'so2'):
+    def save(self, df: pd.DataFrame, volcano_name: str, value_type: str = 'so2') -> None:
+        """Save dataframe to file.
+
+        Args:
+            df (pd.DataFrame): Dataframe to save.
+            volcano_name (str): Volcano name.
+            value_type (str): Value type. Defaults to 'so2'.
+
+        Returns:
+            None
+        """
         value_type: str = value_type.lower()
         excel_dir = os.path.join(self.output_directory, 'excel', value_type)
         os.makedirs(excel_dir, exist_ok=True)
@@ -151,7 +211,12 @@ class MountsProject:
         print(f"=> ✅ Excel: {excel_file}")
         print(f"=> ✅ CSV: {csv_file}")
 
-    def run(self):
+    def run(self) -> None:
+        """Run mounts project scrapping.
+
+        Returns:
+            None
+        """
         for index, volcano in enumerate(self.volcanoes):
             volcano_code = volcano['code']
             volcano_name = volcano['name']
