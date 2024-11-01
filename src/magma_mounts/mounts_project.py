@@ -8,6 +8,46 @@ from requests import Response
 
 volcanoes: List[Dict[str, Any]] = [
     {
+        "name": "Anak Krakatau",
+        "smithsonian_id": "262000",
+        "code": "KRA",
+    },
+    {
+        "name": "Awu",
+        "smithsonian_id": "267040",
+        "code": "AWU",
+    },
+    {
+        "name": "Dukono",
+        "smithsonian_id": "268010",
+        "code": "DUK",
+    },
+    {
+        "name": "Ibu",
+        "smithsonian_id": "268030",
+        "code": "IBU",
+    },
+    {
+        "name": "Ijen",
+        "smithsonian_id": "263350",
+        "code": "IJE",
+    },
+    {
+        "name": "Ili Lewotolok",
+        "smithsonian_id": "264230",
+        "code": "LEW",
+    },
+    {
+        "name": "Karangetang",
+        "smithsonian_id": "267020",
+        "code": "KAR",
+    },
+    {
+        "name": "Kerinci",
+        "smithsonian_id": "261170",
+        "code": "KER",
+    },
+    {
         "name": "Lewotobi Laki-laki",
         "smithsonian_id": "264180",
         "code": "LWK",
@@ -18,39 +58,9 @@ volcanoes: List[Dict[str, Any]] = [
         "code": "MAR",
     },
     {
-        "name": "Anak Krakatau",
-        "smithsonian_id": "262000",
-        "code": "KRA",
-    },
-    {
-        "name": "Kerinci",
-        "smithsonian_id": "261170",
-        "code": "KER",
-    },
-    {
-        "name": "Karangetang",
-        "smithsonian_id": "267020",
-        "code": "KAR",
-    },
-    {
-        "name": "Dukono",
-        "smithsonian_id": "268010",
-        "code": "DUK",
-    },
-    {
-        "name": "Ili Lewotolok",
-        "smithsonian_id": "264230",
-        "code": "LEW",
-    },
-    {
-        "name": "Ibu",
-        "smithsonian_id": "268030",
-        "code": "IBU",
-    },
-    {
-        "name": "Semeru",
-        "smithsonian_id": "263300",
-        "code": "SMR",
+        "name": "Merapi",
+        "smithsonian_id": "263250",
+        "code": "MER",
     },
     {
         "name": "Raung",
@@ -58,9 +68,14 @@ volcanoes: List[Dict[str, Any]] = [
         "code": "RAU",
     },
     {
-        "name": "Ijen",
-        "smithsonian_id": "263350",
-        "code": "IJE",
+        "name": "Ruang",
+        "smithsonian_id": "267010",
+        "code": "RUA",
+    },
+    {
+        "name": "Semeru",
+        "smithsonian_id": "263300",
+        "code": "SMR",
     },
     {
         "name": "Slamet",
